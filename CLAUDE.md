@@ -20,7 +20,9 @@ A comprehensive multi-step form component that guides users through a sequential
 - Exposed internal state for current step and completion status
 
 ***Properties:***
-- steps: Array - Array of step objects, each containing a label and content dropzone
+- numberOfSteps: number - Number of steps in the form (1-10, default: 3)
+- step1Label through step10Label: string - Labels for each step
+- step1Content through step10Content: Element - Content dropzones for each step (visibility controlled by numberOfSteps)
 - showProgressBar: boolean - Display progress bar (default: true)
 - showStepIndicators: boolean - Display step indicators (default: true)
 - showNavigationButtons: boolean - Display navigation buttons (default: true)
@@ -65,7 +67,10 @@ A comprehensive multi-step form component that guides users through a sequential
 - validationStates: Array of validation states for each step. (path: variables['uid-validationStates'])
 
 ***Notes:***
-- Each step contains a dropzone where you can add any WeWeb elements (inputs, text, images, etc.)
+- Set the "Number of Steps" property to control how many steps appear (1-10)
+- Each step has a separate label and content dropzone (stepXLabel and stepXContent)
+- Only the properties for active steps are visible in the editor (based on numberOfSteps)
+- Each step dropzone can contain any WeWeb elements (inputs, text, images, etc.)
 - When step validation is enabled, use the `setStepValidation` action in workflows to control step progression
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled

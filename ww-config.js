@@ -79,74 +79,263 @@ export default {
     }
   ],
   properties: {
-    steps: {
-      label: { en: 'Form Steps' },
-      type: 'Array',
+    numberOfSteps: {
+      label: { en: 'Number of Steps' },
+      type: 'Number',
       section: 'settings',
       bindable: true,
-      defaultValue: [
-        {
-          label: 'Step 1',
-          content: {
-            isWwObject: true,
-            type: 'ww-flexbox',
-            name: 'Step 1 Content'
-          }
-        },
-        {
-          label: 'Step 2',
-          content: {
-            isWwObject: true,
-            type: 'ww-flexbox',
-            name: 'Step 2 Content'
-          }
-        },
-        {
-          label: 'Step 3',
-          content: {
-            isWwObject: true,
-            type: 'ww-flexbox',
-            name: 'Step 3 Content'
-          }
-        }
-      ],
+      defaultValue: 3,
       options: {
-        expandable: true,
-        getItemLabel(item, index) {
-          return item?.label || `Step ${index + 1}`;
-        },
-        item: {
-          label: {
-            label: { en: 'Step Label' },
-            type: 'Text',
-            bindable: true,
-            defaultValue: 'New Step',
-            options: {
-              placeholder: 'Enter step label'
-            }
-          },
-          content: {
-            label: { en: 'Step Content' },
-            type: 'Element',
-            options: {
-              placeholder: 'Add content to this step'
-            },
-            defaultValue: {
-              isWwObject: true,
-              type: 'ww-flexbox'
-            }
-          }
-        }
+        min: 1,
+        max: 10
       },
       /* wwEditor:start */
       bindingValidation: {
-        type: 'array',
-        tooltip: 'An array of step objects, each containing a label and content dropzone'
+        type: 'number',
+        tooltip: 'Number of steps in the form (1-10)'
       },
       propertyHelp: {
-        tooltip: 'Define the steps of your multi-step form. Each step can contain any WeWeb elements.'
+        tooltip: 'Set how many steps your form should have'
       }
       /* wwEditor:end */
+    },
+    step1Label: {
+      label: { en: 'Step 1 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 1',
+      options: {
+        placeholder: 'Enter step 1 label'
+      }
+    },
+    step1Content: {
+      label: { en: 'Step 1 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 1'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      }
+    },
+    step2Label: {
+      label: { en: 'Step 2 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 2',
+      options: {
+        placeholder: 'Enter step 2 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 2
+    },
+    step2Content: {
+      label: { en: 'Step 2 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 2'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 2
+    },
+    step3Label: {
+      label: { en: 'Step 3 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 3',
+      options: {
+        placeholder: 'Enter step 3 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 3
+    },
+    step3Content: {
+      label: { en: 'Step 3 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 3'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 3
+    },
+    step4Label: {
+      label: { en: 'Step 4 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 4',
+      options: {
+        placeholder: 'Enter step 4 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 4
+    },
+    step4Content: {
+      label: { en: 'Step 4 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 4'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 4
+    },
+    step5Label: {
+      label: { en: 'Step 5 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 5',
+      options: {
+        placeholder: 'Enter step 5 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 5
+    },
+    step5Content: {
+      label: { en: 'Step 5 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 5'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 5
+    },
+    step6Label: {
+      label: { en: 'Step 6 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 6',
+      options: {
+        placeholder: 'Enter step 6 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 6
+    },
+    step6Content: {
+      label: { en: 'Step 6 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 6'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 6
+    },
+    step7Label: {
+      label: { en: 'Step 7 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 7',
+      options: {
+        placeholder: 'Enter step 7 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 7
+    },
+    step7Content: {
+      label: { en: 'Step 7 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 7'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 7
+    },
+    step8Label: {
+      label: { en: 'Step 8 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 8',
+      options: {
+        placeholder: 'Enter step 8 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 8
+    },
+    step8Content: {
+      label: { en: 'Step 8 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 8'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 8
+    },
+    step9Label: {
+      label: { en: 'Step 9 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 9',
+      options: {
+        placeholder: 'Enter step 9 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 9
+    },
+    step9Content: {
+      label: { en: 'Step 9 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 9'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 9
+    },
+    step10Label: {
+      label: { en: 'Step 10 - Label' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Step 10',
+      options: {
+        placeholder: 'Enter step 10 label'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 10
+    },
+    step10Content: {
+      label: { en: 'Step 10 - Content' },
+      type: 'Element',
+      section: 'settings',
+      options: {
+        placeholder: 'Add content to step 10'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 10
     },
     showProgressBar: {
       label: { en: 'Show Progress Bar' },

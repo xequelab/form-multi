@@ -124,7 +124,21 @@ export default {
       return false;
     });
 
-    const steps = computed(() => props.content?.steps || []);
+    const steps = computed(() => {
+      const numberOfSteps = props.content?.numberOfSteps || 3;
+      const stepsArray = [];
+
+      for (let i = 1; i <= numberOfSteps && i <= 10; i++) {
+        const labelKey = `step${i}Label`;
+        const contentKey = `step${i}Content`;
+        stepsArray.push({
+          label: props.content?.[labelKey] || `Step ${i}`,
+          content: props.content?.[contentKey]
+        });
+      }
+
+      return stepsArray;
+    });
     
     const { value: currentStepIndex, setValue: setCurrentStepIndex } = wwLib.wwVariable.useComponentVariable({
       uid: props.uid,
