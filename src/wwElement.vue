@@ -32,17 +32,17 @@
 
     <!-- Steps Content -->
     <div class="steps-content" :style="stepsContentStyle">
-      <!-- In edit mode, render all 10 possible steps for editor tree -->
+      <!-- In edit mode, render steps that have content -->
       <template v-if="isEditing">
-        <div
-          v-for="index in 10"
-          :key="index"
-          class="step-wrapper"
-          :class="{ 'step-hidden': index > (content?.numberOfSteps || 3) }"
-          :style="{ display: (index - 1) === currentStepIndex ? 'block' : 'none' }"
-        >
-          <wwElement v-if="content?.[`step${index}Content`]" v-bind="content[`step${index}Content`]" />
-        </div>
+        <template v-for="index in 10" :key="index">
+          <div
+            v-if="content?.[`step${index}Content`]"
+            class="step-wrapper"
+            :style="{ display: (index - 1) === currentStepIndex ? 'block' : 'none' }"
+          >
+            <wwElement v-bind="content[`step${index}Content`]" />
+          </div>
+        </template>
       </template>
       <!-- In preview/published mode, use transition -->
       <template v-else>
@@ -384,15 +384,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  /* Hide steps beyond numberOfSteps in editor tree */
-  .step-hidden {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    overflow: hidden !important;
-    pointer-events: none !important;
-  }
 
   .progress-section {
     width: 100%;

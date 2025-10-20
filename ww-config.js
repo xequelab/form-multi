@@ -185,11 +185,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 4'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 4'
       },
       hidden: content => (content.numberOfSteps || 3) < 4
     },
@@ -209,11 +205,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 5'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 5'
       },
       hidden: content => (content.numberOfSteps || 3) < 5
     },
@@ -233,11 +225,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 6'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 6'
       },
       hidden: content => (content.numberOfSteps || 3) < 6
     },
@@ -257,11 +245,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 7'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 7'
       },
       hidden: content => (content.numberOfSteps || 3) < 7
     },
@@ -281,11 +265,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 8'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 8'
       },
       hidden: content => (content.numberOfSteps || 3) < 8
     },
@@ -305,11 +285,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 9'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 9'
       },
       hidden: content => (content.numberOfSteps || 3) < 9
     },
@@ -329,11 +305,7 @@ export default {
       type: 'Element',
       section: 'settings',
       options: {
-        placeholder: 'Add content to step 10'
-      },
-      defaultValue: {
-        isWwObject: true,
-        type: 'ww-flexbox'
+        placeholder: 'Click + to add content to step 10'
       },
       hidden: content => (content.numberOfSteps || 3) < 10
     },

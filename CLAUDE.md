@@ -68,6 +68,12 @@ A comprehensive multi-step form component that guides users through a sequential
 
 ***Notes:***
 - Set the "Number of Steps" property to control how many steps appear (1-10)
+- By default, the component starts with 3 steps (Step 1, 2, and 3)
+- **To add more steps (4-10):**
+  1. Increase the "Number of Steps" value
+  2. The new step label and content fields will appear in the properties panel
+  3. Click the "+" button next to "Step X - Content" to add a container element
+  4. The new step will then appear in the editor tree on the left
 - Each step has a separate label and content dropzone (stepXLabel and stepXContent)
 - Only the properties for active steps are visible in the editor (based on numberOfSteps)
 - Each step dropzone can contain any WeWeb elements (inputs, text, images, etc.)
