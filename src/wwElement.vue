@@ -32,11 +32,25 @@
 
     <!-- Steps Content -->
     <div class="steps-content" :style="stepsContentStyle">
-      <transition :name="transitionName" :mode="transitionMode">
-        <div :key="currentStepIndex" class="step-wrapper">
-          <wwElement v-bind="currentStep?.content" />
+      <!-- In edit mode, render all steps for editor tree -->
+      <template v-if="isEditing">
+        <div
+          v-for="(step, index) in steps"
+          :key="index"
+          class="step-wrapper"
+          :style="{ display: index === currentStepIndex ? 'block' : 'none' }"
+        >
+          <wwElement v-bind="step?.content" />
         </div>
-      </transition>
+      </template>
+      <!-- In preview/published mode, use transition -->
+      <template v-else>
+        <transition :name="transitionName" :mode="transitionMode">
+          <div :key="currentStepIndex" class="step-wrapper">
+            <wwElement v-bind="currentStep?.content" />
+          </div>
+        </transition>
+      </template>
     </div>
 
     <!-- Navigation Buttons -->
