@@ -116,49 +116,24 @@ export default {
           return item?.label || `Step ${index + 1}`;
         },
         item: {
-          type: 'Object',
-          defaultValue: {
-            label: 'New Step',
-            content: {
-              isWwObject: true,
-              type: 'ww-flexbox',
-              name: 'Step Content'
+          label: {
+            label: { en: 'Step Label' },
+            type: 'Text',
+            bindable: true,
+            defaultValue: 'New Step',
+            options: {
+              placeholder: 'Enter step label'
             }
           },
-          options: {
-            item: {
-              label: {
-                label: { en: 'Step Label' },
-                type: 'Text',
-                section: 'settings',
-                bindable: true,
-                defaultValue: 'Step',
-                options: {
-                  placeholder: 'Enter step label'
-                },
-                /* wwEditor:start */
-                bindingValidation: {
-                  type: 'string',
-                  tooltip: 'A string that represents the step label displayed in the indicator'
-                },
-                propertyHelp: {
-                  tooltip: 'The label text shown below each step indicator'
-                }
-                /* wwEditor:end */
-              },
-              content: {
-                label: { en: 'Step Content' },
-                type: 'Element',
-                section: 'settings',
-                options: {
-                  placeholder: 'Add content to this step'
-                },
-                defaultValue: {
-                  isWwObject: true,
-                  type: 'ww-flexbox',
-                  name: 'Step Content'
-                }
-              }
+          content: {
+            label: { en: 'Step Content' },
+            type: 'Element',
+            options: {
+              placeholder: 'Add content to this step'
+            },
+            defaultValue: {
+              isWwObject: true,
+              type: 'ww-flexbox'
             }
           }
         }
