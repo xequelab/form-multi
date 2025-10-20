@@ -70,6 +70,20 @@ export default {
       ]
     },
     {
+      label: { en: 'Update step data' },
+      action: 'updateStepData',
+      args: [
+        {
+          name: 'stepIndex',
+          type: 'number'
+        },
+        {
+          name: 'data',
+          type: 'object'
+        }
+      ]
+    },
+    {
       label: { en: 'Reset form' },
       action: 'resetForm'
     },
@@ -118,7 +132,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 1'
       }
     },
     step2Label: {
@@ -141,7 +156,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 2'
       },
       hidden: content => (content.numberOfSteps || 3) < 2
     },
@@ -165,7 +181,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 3'
       },
       hidden: content => (content.numberOfSteps || 3) < 3
     },
@@ -189,7 +206,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 4'
       },
       hidden: content => (content.numberOfSteps || 3) < 4
     },
@@ -213,7 +231,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 5'
       },
       hidden: content => (content.numberOfSteps || 3) < 5
     },
@@ -237,7 +256,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 6'
       },
       hidden: content => (content.numberOfSteps || 3) < 6
     },
@@ -261,7 +281,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 7'
       },
       hidden: content => (content.numberOfSteps || 3) < 7
     },
@@ -285,7 +306,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 8'
       },
       hidden: content => (content.numberOfSteps || 3) < 8
     },
@@ -309,7 +331,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 9'
       },
       hidden: content => (content.numberOfSteps || 3) < 9
     },
@@ -333,7 +356,8 @@ export default {
       },
       defaultValue: {
         isWwObject: true,
-        type: 'ww-flexbox'
+        type: 'ww-flexbox',
+        name: 'Step 10'
       },
       hidden: content => (content.numberOfSteps || 3) < 10
     },
