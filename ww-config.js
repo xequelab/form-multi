@@ -187,6 +187,10 @@ export default {
       options: {
         placeholder: 'Add content to step 4'
       },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
       hidden: content => (content.numberOfSteps || 3) < 4
     },
     step5Label: {
@@ -206,6 +210,10 @@ export default {
       section: 'settings',
       options: {
         placeholder: 'Add content to step 5'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
       },
       hidden: content => (content.numberOfSteps || 3) < 5
     },
@@ -227,6 +235,10 @@ export default {
       options: {
         placeholder: 'Add content to step 6'
       },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
       hidden: content => (content.numberOfSteps || 3) < 6
     },
     step7Label: {
@@ -246,6 +258,10 @@ export default {
       section: 'settings',
       options: {
         placeholder: 'Add content to step 7'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
       },
       hidden: content => (content.numberOfSteps || 3) < 7
     },
@@ -267,6 +283,10 @@ export default {
       options: {
         placeholder: 'Add content to step 8'
       },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
       hidden: content => (content.numberOfSteps || 3) < 8
     },
     step9Label: {
@@ -287,6 +307,10 @@ export default {
       options: {
         placeholder: 'Add content to step 9'
       },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
+      },
       hidden: content => (content.numberOfSteps || 3) < 9
     },
     step10Label: {
@@ -306,6 +330,10 @@ export default {
       section: 'settings',
       options: {
         placeholder: 'Add content to step 10'
+      },
+      defaultValue: {
+        isWwObject: true,
+        type: 'ww-flexbox'
       },
       hidden: content => (content.numberOfSteps || 3) < 10
     },
