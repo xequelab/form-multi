@@ -147,7 +147,12 @@ export default {
                 /* wwEditor:end */
               },
               content: {
-                hidden: true,
+                label: { en: 'Step Content' },
+                type: 'Element',
+                section: 'settings',
+                options: {
+                  placeholder: 'Add content to this step'
+                },
                 defaultValue: {
                   isWwObject: true,
                   type: 'ww-flexbox',
