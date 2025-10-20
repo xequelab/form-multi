@@ -40,7 +40,7 @@
           class="step-wrapper"
           :style="{ display: index === currentStepIndex ? 'block' : 'none' }"
         >
-          <wwElement v-bind="step?.content" />
+          <wwElement v-if="step?.content" v-bind="step.content" />
         </div>
       </template>
       <!-- In preview/published mode, use transition -->
