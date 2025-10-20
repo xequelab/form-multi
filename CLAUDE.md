@@ -58,39 +58,13 @@ A comprehensive multi-step form component that guides users through a sequential
 - `previousStep`: Navigate to the previous step. No arguments
 - `goToStep`: Navigate to a specific step. Args: stepIndex (number)
 - `setStepValidation`: Set validation state for a step. Args: stepIndex (number), isValid (boolean)
-- `updateStepData`: Store data for a specific step. Args: stepIndex (number), data (object). Example: updateStepData(0, { name: "John", email: "john@example.com" })
-- `resetForm`: Reset form to first step and clear validation states and data. No arguments
+- `resetForm`: Reset form to first step and clear validation states. No arguments
 - `submitForm`: Submit the form (only works if on last step and validation passes). No arguments
 
 ***Exposed Variables:***
 - currentStepIndex: Current step index (0-based). (path: variables['uid-currentStepIndex'])
 - isCompleted: Whether form has been submitted. (path: variables['uid-isCompleted'])
 - validationStates: Array of validation states for each step. (path: variables['uid-validationStates'])
-- stepData: Array of objects containing data for each step. (path: variables['uid-stepData'])
-
-***Data Collection Example:***
-
-The component provides organized data storage through the `stepData` variable. Here's how to collect form data:
-
-**Step 1 (index 0):**
-- Add inputs: nameInput, emailInput
-- On "Next" button click, create a workflow:
-  - Action: updateStepData(0, { name: nameInput.value, email: emailInput.value })
-
-**Step 2 (index 1):**
-- Add inputs: addressInput, cityInput
-- On "Next" button click:
-  - Action: updateStepData(1, { address: addressInput.value, city: cityInput.value })
-
-**Result in stepData variable:**
-```javascript
-[
-  { name: "John", email: "john@example.com" },    // Step 1 data
-  { address: "123 Main St", city: "New York" }    // Step 2 data
-]
-```
-
-You can then access this data in your submit workflow using `variables['uid-stepData']`.
 
 ***Notes:***
 - Flexbox containers are named "Step 1", "Step 2", etc. for easy identification in the tree

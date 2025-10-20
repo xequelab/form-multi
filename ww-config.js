@@ -70,20 +70,6 @@ export default {
       ]
     },
     {
-      label: { en: 'Update step data' },
-      action: 'updateStepData',
-      args: [
-        {
-          name: 'stepIndex',
-          type: 'number'
-        },
-        {
-          name: 'data',
-          type: 'object'
-        }
-      ]
-    },
-    {
       label: { en: 'Reset form' },
       action: 'resetForm'
     },

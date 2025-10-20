@@ -162,13 +162,6 @@ export default {
       defaultValue: computed(() => (steps.value || []).map(() => true))
     });
 
-    const { value: stepData, setValue: setStepData } = wwLib.wwVariable.useComponentVariable({
-      uid: props.uid,
-      name: 'stepData',
-      type: 'array',
-      defaultValue: []
-    });
-
     const currentStep = computed(() => steps.value?.[currentStepIndex.value] || null);
 
     const progressPercentage = computed(() => {
@@ -303,20 +296,12 @@ export default {
       return false;
     };
 
-    const updateStepData = (stepIndex, data) => {
-      const currentData = [...(stepData.value || [])];
-      currentData[stepIndex] = data;
-      setStepData(currentData);
-      return true;
-    };
-
     const resetForm = () => {
       if (isEditing.value) return;
 
       setCurrentStepIndex(0);
       setIsCompleted(false);
       setValidationStates((steps.value || []).map(() => true));
-      setStepData([]);
 
       emit('trigger-event', {
         name: 'reset',
@@ -387,7 +372,6 @@ export default {
       previousStep,
       goToStep,
       setStepValidation,
-      updateStepData,
       resetForm,
       submitForm
     };
