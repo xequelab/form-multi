@@ -130,8 +130,12 @@ If any intermediate step fails validation, the navigation is blocked and no erro
 - Error messages are displayed elegantly within the step content with smooth animations
 - When step validation is enabled, use the `setStepValidation` action in workflows to control step progression
 - Step indicators can be displayed horizontally (default) or vertically via the orientation property
+  - **Horizontal:** Indicators displayed at the top, content below (full width)
+  - **Vertical:** Indicators on the left sidebar (250px), content takes remaining space on the right
 - Free navigation allows users to click step indicators to jump between steps (with automatic validation)
-- **Editor Fix:** Component state is now preserved when navigating between steps in edit mode (values don't reset)
+- **Editor Fix:** Component state is fully preserved across edit/preview mode transitions (values never reset)
+  - Uses v-show instead of v-if to keep all steps rendered
+  - Maintains component state when switching between edit and preview modes
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled
 - The submit button only appears on the final step

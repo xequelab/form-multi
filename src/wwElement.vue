@@ -1,5 +1,5 @@
 <template>
-  <div class="multi-step-form" :style="containerStyle">
+  <div class="multi-step-form" :style="containerStyle" :class="[`orientation-${stepIndicatorsOrientation}`]">
     <!-- Progress Bar -->
     <div v-if="showProgressBar" class="progress-section">
       <ProgressBar
@@ -11,57 +11,51 @@
       />
     </div>
 
-    <!-- Step Indicators -->
-    <div v-if="showStepIndicators" class="indicators-section">
-      <div class="indicators-container" :class="[`orientation-${stepIndicatorsOrientation}`]">
-        <StepIndicator
-          v-for="(step, index) in steps"
-          :key="index"
-          :step-number="index + 1"
-          :label="step.label"
-          :is-active="currentStepIndex === index"
-          :is-completed="index < currentStepIndex"
-          :active-color="activeStepColor"
-          :completed-color="completedStepColor"
-          :inactive-color="inactiveStepColor"
-          :show-checkmark="showCheckmarkOnCompleted"
-          :is-clickable="enableFreeNavigation"
-          @click="handleStepClick"
-        />
-        <div v-if="steps.length > 1" class="connector-line" :class="[`orientation-${stepIndicatorsOrientation}`]" :style="connectorStyle"></div>
+    <!-- Main Content Area (for vertical layout: indicators left, content right) -->
+    <div class="main-content-area" :class="[`orientation-${stepIndicatorsOrientation}`]">
+      <!-- Step Indicators -->
+      <div v-if="showStepIndicators" class="indicators-section">
+        <div class="indicators-container" :class="[`orientation-${stepIndicatorsOrientation}`]">
+          <StepIndicator
+            v-for="(step, index) in steps"
+            :key="index"
+            :step-number="index + 1"
+            :label="step.label"
+            :is-active="currentStepIndex === index"
+            :is-completed="index < currentStepIndex"
+            :active-color="activeStepColor"
+            :completed-color="completedStepColor"
+            :inactive-color="inactiveStepColor"
+            :show-checkmark="showCheckmarkOnCompleted"
+            :is-clickable="enableFreeNavigation"
+            @click="handleStepClick"
+          />
+          <div v-if="steps.length > 1" class="connector-line" :class="[`orientation-${stepIndicatorsOrientation}`]" :style="connectorStyle"></div>
+        </div>
       </div>
-    </div>
 
-    <!-- Steps Content -->
-    <div class="steps-content" :style="stepsContentStyle">
-      <!-- In edit mode, render all steps and use v-show to preserve state -->
-      <template v-if="isEditing">
-        <template v-for="index in 10" :key="`edit-step-${index}`">
-          <div
-            v-if="content?.[`step${index}Content`]"
-            v-show="(index - 1) === currentStepIndex"
-            class="step-wrapper"
-          >
-            <wwElement v-bind="content[`step${index}Content`]" />
-          </div>
-        </template>
-      </template>
-      <!-- In preview/published mode, use transition -->
-      <template v-else>
-        <transition :name="transitionName" :mode="transitionMode">
-          <div :key="currentStepIndex" class="step-wrapper">
-            <wwElement v-bind="currentStep?.content" />
+      <!-- Steps Content -->
+      <div class="steps-content" :style="stepsContentStyle">
+      <!-- Always render all steps with v-show to preserve state across edit/preview modes -->
+      <template v-for="index in 10" :key="`step-${index}`">
+        <div
+          v-if="content?.[`step${index}Content`]"
+          v-show="(index - 1) === currentStepIndex"
+          class="step-wrapper"
+          :class="{ 'with-transition': !isEditing }"
+        >
+          <wwElement v-bind="content[`step${index}Content`]" />
 
-            <!-- Validation Error Message -->
-            <transition name="error-fade">
-              <div v-if="showValidationError" class="validation-error" :style="errorMessageStyle">
-                <span class="error-icon">⚠</span>
-                <span class="error-text">{{ currentStep?.errorMessage }}</span>
-              </div>
-            </transition>
-          </div>
-        </transition>
+          <!-- Validation Error Message (only in preview/published mode) -->
+          <transition name="error-fade">
+            <div v-if="!isEditing && showValidationError && (index - 1) === currentStepIndex" class="validation-error" :style="errorMessageStyle">
+              <span class="error-icon">⚠</span>
+              <span class="error-text">{{ steps[index - 1]?.errorMessage }}</span>
+            </div>
+          </transition>
+        </div>
       </template>
+      </div>
     </div>
 
     <!-- Navigation Buttons -->
@@ -503,8 +497,35 @@ export default {
     width: 100%;
   }
 
-  .indicators-section {
+  // Main content area - controls layout of indicators and content
+  .main-content-area {
+    display: flex;
     width: 100%;
+    gap: 24px;
+
+    // Horizontal orientation: indicators on top, content below (stacked)
+    &.orientation-horizontal {
+      flex-direction: column;
+    }
+
+    // Vertical orientation: indicators on left, content on right (side by side)
+    &.orientation-vertical {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .indicators-section {
+    // In horizontal mode: full width
+    .main-content-area.orientation-horizontal & {
+      width: 100%;
+    }
+
+    // In vertical mode: fixed width for indicators column
+    .main-content-area.orientation-vertical & {
+      flex-shrink: 0;
+      min-width: 250px;
+    }
 
     .indicators-container {
       display: flex;
@@ -550,9 +571,18 @@ export default {
   }
 
   .steps-content {
-    width: 100%;
     position: relative;
     overflow: hidden;
+
+    // In horizontal mode: full width
+    .main-content-area.orientation-horizontal & {
+      width: 100%;
+    }
+
+    // In vertical mode: flex to take remaining space
+    .main-content-area.orientation-vertical & {
+      flex: 1;
+    }
 
     .step-wrapper {
       width: 100%;
