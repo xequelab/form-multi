@@ -13,7 +13,7 @@
 
     <!-- Step Indicators -->
     <div v-if="showStepIndicators" class="indicators-section">
-      <div class="indicators-container">
+      <div class="indicators-container" :class="[`orientation-${stepIndicatorsOrientation}`]">
         <StepIndicator
           v-for="(step, index) in steps"
           :key="index"
@@ -25,20 +25,22 @@
           :completed-color="completedStepColor"
           :inactive-color="inactiveStepColor"
           :show-checkmark="showCheckmarkOnCompleted"
+          :is-clickable="enableFreeNavigation"
+          @click="handleStepClick"
         />
-        <div v-if="steps.length > 1" class="connector-line" :style="connectorStyle"></div>
+        <div v-if="steps.length > 1" class="connector-line" :class="[`orientation-${stepIndicatorsOrientation}`]" :style="connectorStyle"></div>
       </div>
     </div>
 
     <!-- Steps Content -->
     <div class="steps-content" :style="stepsContentStyle">
-      <!-- In edit mode, render steps that have content -->
+      <!-- In edit mode, render all steps and use v-show to preserve state -->
       <template v-if="isEditing">
-        <template v-for="index in 10" :key="index">
+        <template v-for="index in 10" :key="`edit-step-${index}`">
           <div
             v-if="content?.[`step${index}Content`]"
+            v-show="(index - 1) === currentStepIndex"
             class="step-wrapper"
-            :style="{ display: (index - 1) === currentStepIndex ? 'block' : 'none' }"
           >
             <wwElement v-bind="content[`step${index}Content`]" />
           </div>
@@ -302,6 +304,67 @@ export default {
       }
     };
 
+    const handleStepClick = (targetStepIndex) => {
+      if (isEditing.value) return;
+      if (!props.content?.enableFreeNavigation) return;
+      if (targetStepIndex === currentStepIndex.value) return; // Already on this step
+
+      // Going backwards is always allowed
+      if (targetStepIndex < currentStepIndex.value) {
+        const oldIndex = currentStepIndex.value;
+        showValidationError.value = false;
+        setCurrentStepIndex(targetStepIndex);
+
+        emit('trigger-event', {
+          name: 'stepChange',
+          event: {
+            previousStep: oldIndex,
+            currentStep: targetStepIndex,
+            direction: 'previous'
+          }
+        });
+        return;
+      }
+
+      // Going forward - validate all steps between current and target
+      // Check current step first
+      if (!currentStepIsValid.value) {
+        showValidationError.value = true;
+        return;
+      }
+
+      // Check all intermediate steps if enableStepValidation is on
+      if (props.content?.enableStepValidation) {
+        for (let i = currentStepIndex.value; i < targetStepIndex; i++) {
+          if (validationStates.value?.[i] === false) {
+            // Cannot proceed - a step in between is not valid
+            return;
+          }
+
+          // Check step condition
+          const step = steps.value[i];
+          const isValid = step.condition === undefined || step.condition === true || step.condition === 'true';
+          if (!isValid) {
+            return;
+          }
+        }
+      }
+
+      // All validations passed - navigate to target step
+      const oldIndex = currentStepIndex.value;
+      showValidationError.value = false;
+      setCurrentStepIndex(targetStepIndex);
+
+      emit('trigger-event', {
+        name: 'stepChange',
+        event: {
+          previousStep: oldIndex,
+          currentStep: targetStepIndex,
+          direction: 'next'
+        }
+      });
+    };
+
     const goToStep = (stepIndex) => {
       if (isEditing.value) return false;
 
@@ -401,6 +464,8 @@ export default {
       currentStepIsValid,
       showProgressBar: computed(() => props.content?.showProgressBar !== false),
       showStepIndicators: computed(() => props.content?.showStepIndicators !== false),
+      stepIndicatorsOrientation: computed(() => props.content?.stepIndicatorsOrientation || 'horizontal'),
+      enableFreeNavigation: computed(() => props.content?.enableFreeNavigation === true),
       showNavigationButtons: computed(() => props.content?.showNavigationButtons !== false),
       showPreviousButton: computed(() => props.content?.showPreviousButton !== false),
       showNextButton: computed(() => props.content?.showNextButton !== false),
@@ -421,7 +486,8 @@ export default {
       goToStep,
       setStepValidation,
       resetForm,
-      submitForm
+      submitForm,
+      handleStepClick
     };
   }
 };
@@ -439,18 +505,46 @@ export default {
 
   .indicators-section {
     width: 100%;
-    
+
     .indicators-container {
       display: flex;
-      align-items: flex-start;
       position: relative;
-      
-      .connector-line {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
-        z-index: 0;
+
+      &.orientation-horizontal {
+        flex-direction: row;
+        align-items: flex-start;
+
+        .connector-line {
+          position: absolute;
+          top: 20px;
+          left: 0;
+          right: 0;
+          z-index: 0;
+
+          &.orientation-horizontal {
+            height: var(--connector-height, 2px);
+            width: 100%;
+          }
+        }
+      }
+
+      &.orientation-vertical {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+
+        .connector-line {
+          position: absolute;
+          left: 20px;
+          top: 0;
+          bottom: 0;
+          z-index: 0;
+
+          &.orientation-vertical {
+            width: var(--connector-height, 2px);
+            height: 100%;
+          }
+        }
       }
     }
   }

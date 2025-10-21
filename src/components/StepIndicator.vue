@@ -1,5 +1,9 @@
 <template>
-  <div class="step-indicator" :class="{ active: isActive, completed: isCompleted }">
+  <div
+    class="step-indicator"
+    :class="{ active: isActive, completed: isCompleted, clickable: isClickable }"
+    @click="handleClick"
+  >
     <div class="step-number" :style="indicatorStyle">
       <span v-if="!isCompleted || !showCheckmark">{{ stepNumber }}</span>
       <svg v-else class="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -47,9 +51,19 @@ export default {
     showCheckmark: {
       type: Boolean,
       default: true
+    },
+    isClickable: {
+      type: Boolean,
+      default: false
     }
   },
-  setup(props) {
+  emits: ['click'],
+  setup(props, { emit }) {
+    const handleClick = () => {
+      if (props.isClickable) {
+        emit('click', props.stepNumber - 1);
+      }
+    };
     const indicatorStyle = computed(() => {
       let backgroundColor = props.inactiveColor;
       let color = '#666';
@@ -83,7 +97,8 @@ export default {
 
     return {
       indicatorStyle,
-      labelStyle
+      labelStyle,
+      handleClick
     };
   }
 };
@@ -92,11 +107,36 @@ export default {
 <style scoped lang="scss">
 .step-indicator {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  flex: 1;
+  gap: 12px;
   position: relative;
+
+  // In vertical mode, label appears to the right
+  .indicators-container.orientation-vertical & {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  // In horizontal mode, label appears below
+  .indicators-container.orientation-horizontal & {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover .step-number {
+      transform: scale(1.05);
+    }
+
+    &:active .step-number {
+      transform: scale(0.95);
+    }
+  }
 
   .step-number {
     width: 40px;
@@ -111,6 +151,7 @@ export default {
     transition: all 0.3s ease;
     z-index: 1;
     background: white;
+    flex-shrink: 0;
 
     .checkmark {
       width: 20px;
@@ -120,9 +161,16 @@ export default {
 
   .step-label {
     font-size: 14px;
-    text-align: center;
     transition: color 0.3s ease;
     font-weight: 500;
+
+    .indicators-container.orientation-horizontal & {
+      text-align: center;
+    }
+
+    .indicators-container.orientation-vertical & {
+      text-align: left;
+    }
   }
 
   &.active .step-number {

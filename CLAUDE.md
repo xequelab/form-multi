@@ -13,7 +13,8 @@ A comprehensive multi-step form component that guides users through a sequential
 - Dropzone-based steps allowing any WeWeb elements to be added
 - Smooth slide and fade transitions between steps
 - Visual progress bar showing completion percentage
-- Step indicators with active, completed, and inactive states
+- Step indicators with active, completed, and inactive states (horizontal or vertical layout)
+- Free navigation by clicking step indicators (with validation support)
 - Customizable navigation buttons (Previous, Next, Submit)
 - Optional step validation to prevent progression
 - Flexible styling options for all visual elements
@@ -27,6 +28,8 @@ A comprehensive multi-step form component that guides users through a sequential
 - step1ErrorMessage through step10ErrorMessage: string - Error messages shown when validation fails (default: 'Please complete all required fields')
 - showProgressBar: boolean - Display progress bar (default: true)
 - showStepIndicators: boolean - Display step indicators (default: true)
+- stepIndicatorsOrientation: 'horizontal'|'vertical' - Layout direction of step indicators (default: 'horizontal')
+- enableFreeNavigation: boolean - Allow clicking step indicators to navigate (default: false)
 - showNavigationButtons: boolean - Display navigation buttons (default: true)
 - enableStepValidation: boolean - Enable step validation (default: false)
 - transitionDirection: 'horizontal'|'fade' - Animation style between steps (default: 'horizontal')
@@ -89,6 +92,31 @@ Each step can have its own validation condition and error message:
 **Result:**
 When the user tries to click "Next" without meeting the condition, an elegant error message appears within the step content area (not a popup), and navigation is blocked until the condition becomes true.
 
+***Free Navigation:***
+
+Enable the "Enable Free Navigation" option to allow users to click on step indicators to jump between steps.
+
+**How it works:**
+- Users can always navigate **backwards** by clicking any previous step indicator
+- To navigate **forward**, all intermediate steps must pass validation:
+  - Current step's validation condition must be true
+  - If "Enable Step Validation" is on, all steps between current and target must have `validationStates` set to true
+  - All intermediate step conditions must evaluate to true
+
+**Example scenario:**
+- User is on Step 1 (valid)
+- Clicks on Step 3 indicator
+- Component validates Step 1's condition → passes ✓
+- Component validates Step 2's condition → passes ✓
+- User jumps directly to Step 3
+
+If any intermediate step fails validation, the navigation is blocked and no error message is shown (user must complete steps in sequence).
+
+**Use cases:**
+- Allow users to review previous steps
+- Enable power users to skip optional steps
+- Provide quick access to all sections in a multi-section form
+
 ***Notes:***
 - Flexbox containers are named "Step 1", "Step 2", etc. for easy identification in the tree
 - The component creates 10 flexbox containers in the editor tree (one for each possible step)
@@ -101,6 +129,9 @@ When the user tries to click "Next" without meeting the condition, an elegant er
 - Per-step validation conditions allow you to control when users can proceed to the next step
 - Error messages are displayed elegantly within the step content with smooth animations
 - When step validation is enabled, use the `setStepValidation` action in workflows to control step progression
+- Step indicators can be displayed horizontally (default) or vertically via the orientation property
+- Free navigation allows users to click step indicators to jump between steps (with automatic validation)
+- **Editor Fix:** Component state is now preserved when navigating between steps in edit mode (values don't reset)
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled
 - The submit button only appears on the final step

@@ -615,6 +615,52 @@ export default {
       }
       /* wwEditor:end */
     },
+    stepIndicatorsOrientation: {
+      label: { en: 'Step Indicators Orientation' },
+      type: 'TextRadioGroup',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'horizontal',
+      options: {
+        choices: [
+          {
+            value: 'horizontal',
+            title: 'Horizontal',
+            icon: 'align-horizontal-distribute-center'
+          },
+          {
+            value: 'vertical',
+            title: 'Vertical',
+            icon: 'align-vertical-distribute-center'
+          }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'A string: "horizontal" or "vertical"'
+      },
+      propertyHelp: {
+        tooltip: 'Layout direction of step indicators'
+      }
+      /* wwEditor:end */
+    },
+    enableFreeNavigation: {
+      label: { en: 'Enable Free Navigation' },
+      type: 'OnOff',
+      section: 'settings',
+      bindable: true,
+      defaultValue: false,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'boolean',
+        tooltip: 'A boolean to enable or disable free navigation by clicking step indicators'
+      },
+      propertyHelp: {
+        tooltip: 'Allow users to navigate to any step by clicking the step indicator (validates all previous steps)'
+      }
+      /* wwEditor:end */
+    },
     showNavigationButtons: {
       label: { en: 'Show Navigation Buttons' },
       type: 'OnOff',
