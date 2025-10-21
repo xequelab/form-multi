@@ -372,6 +372,13 @@ export default {
       }
     });
 
+    // Watch for condition changes to auto-hide error when it becomes valid
+    watch(currentStepIsValid, (isValid) => {
+      if (isValid && showValidationError.value) {
+        showValidationError.value = false;
+      }
+    });
+
     return {
       isEditing,
       steps,
