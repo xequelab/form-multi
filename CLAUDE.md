@@ -23,6 +23,8 @@ A comprehensive multi-step form component that guides users through a sequential
 - numberOfSteps: number - Number of steps in the form (1-10, default: 3)
 - step1Label through step10Label: string - Labels for each step
 - step1Content through step10Content: Element - Content dropzones for each step (visibility controlled by numberOfSteps)
+- step1Condition through step10Condition: boolean - Validation conditions for each step (default: true)
+- step1ErrorMessage through step10ErrorMessage: string - Error messages shown when validation fails (default: 'Please complete all required fields')
 - showProgressBar: boolean - Display progress bar (default: true)
 - showStepIndicators: boolean - Display step indicators (default: true)
 - showNavigationButtons: boolean - Display navigation buttons (default: true)
@@ -47,6 +49,10 @@ A comprehensive multi-step form component that guides users through a sequential
 - buttonPadding: string - Padding for all navigation buttons (default: '12px 24px')
 - buttonBorderRadius: string - Border radius for buttons (default: '4px')
 - containerGap: string - Spacing between sections (default: '24px')
+- errorMessageBackgroundColor: string - Background color for validation error messages (default: '#fee')
+- errorMessageTextColor: string - Text color for validation error messages (default: '#c33')
+- errorMessagePadding: string - Padding for error messages (default: '12px 16px')
+- errorMessageBorderRadius: string - Border radius for error messages (default: '4px')
 
 ***Events:***
 - stepChange: Triggered when navigating between steps. Payload: { previousStep: number, currentStep: number, direction: 'next'|'previous' }
@@ -66,6 +72,23 @@ A comprehensive multi-step form component that guides users through a sequential
 - isCompleted: Whether form has been submitted. (path: variables['uid-isCompleted'])
 - validationStates: Array of validation states for each step. (path: variables['uid-validationStates'])
 
+***Step Validation Example:***
+
+Each step can have its own validation condition and error message:
+
+**Step 1 - User Info:**
+- Add inputs: `nameInput`, `emailInput`
+- **Step 1 - Validation Condition:** Bind to: `nameInput.value && emailInput.value && emailInput.value.includes('@')`
+- **Step 1 - Error Message:** "Please enter your name and a valid email address"
+
+**Step 2 - Address:**
+- Add inputs: `addressInput`, `cityInput`
+- **Step 2 - Validation Condition:** Bind to: `addressInput.value && cityInput.value`
+- **Step 2 - Error Message:** "Please complete your address information"
+
+**Result:**
+When the user tries to click "Next" without meeting the condition, an elegant error message appears within the step content area (not a popup), and navigation is blocked until the condition becomes true.
+
 ***Notes:***
 - Flexbox containers are named "Step 1", "Step 2", etc. for easy identification in the tree
 - The component creates 10 flexbox containers in the editor tree (one for each possible step)
@@ -75,6 +98,8 @@ A comprehensive multi-step form component that guides users through a sequential
 - To use more steps: simply increase the "Number of Steps" value and the corresponding properties will appear
 - All 10 flexbox containers are always present in the editor tree for convenience - just ignore the ones you're not using
 - Each step dropzone can contain any WeWeb elements (inputs, text, images, etc.)
+- **New:** Per-step validation conditions allow you to control when users can proceed to the next step
+- **New:** Error messages are displayed elegantly within the step content with smooth animations
 - When step validation is enabled, use the `setStepValidation` action in workflows to control step progression
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled

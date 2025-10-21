@@ -122,6 +122,44 @@ export default {
         name: 'Step 1'
       }
     },
+    step1Condition: {
+      label: { en: 'Step 1 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'boolean',
+        tooltip: 'A boolean condition that must be true to proceed from this step'
+      },
+      propertyHelp: {
+        tooltip: 'When false, user cannot proceed to next step and error message is shown'
+      }
+      /* wwEditor:end */
+    },
+    step1ErrorMessage: {
+      label: { en: 'Step 1 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Message shown when validation condition is false'
+      },
+      propertyHelp: {
+        tooltip: 'This message appears within the step when validation fails'
+      }
+      /* wwEditor:end */
+    },
     step2Label: {
       label: { en: 'Step 2 - Label' },
       type: 'Text',
@@ -144,6 +182,28 @@ export default {
         isWwObject: true,
         type: 'ww-flexbox',
         name: 'Step 2'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 2
+    },
+    step2Condition: {
+      label: { en: 'Step 2 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 2
+    },
+    step2ErrorMessage: {
+      label: { en: 'Step 2 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
       },
       hidden: content => (content.numberOfSteps || 3) < 2
     },
@@ -1051,6 +1111,81 @@ tooltip: 'A length value for padding around step content (e.g., "20px")'
 },
 propertyHelp: {
 tooltip: 'The padding around the step content area'
+}
+/* wwEditor:end */
+},
+errorMessageBackgroundColor: {
+label: { en: 'Error Message Background' },
+type: 'Color',
+section: 'style',
+bindable: true,
+defaultValue: '#fee',
+options: {
+nullable: true
+},
+/* wwEditor:start */
+bindingValidation: {
+type: 'string',
+tooltip: 'A color value for error message background'
+},
+propertyHelp: {
+tooltip: 'Background color of validation error messages'
+}
+/* wwEditor:end */
+},
+errorMessageTextColor: {
+label: { en: 'Error Message Text Color' },
+type: 'Color',
+section: 'style',
+bindable: true,
+defaultValue: '#c33',
+options: {
+nullable: true
+},
+/* wwEditor:start */
+bindingValidation: {
+type: 'string',
+tooltip: 'A color value for error message text'
+},
+propertyHelp: {
+tooltip: 'Text color of validation error messages'
+}
+/* wwEditor:end */
+},
+errorMessagePadding: {
+label: { en: 'Error Message Padding' },
+type: 'Length',
+section: 'style',
+bindable: true,
+defaultValue: '12px 16px',
+/* wwEditor:start */
+bindingValidation: {
+type: 'string',
+tooltip: 'A length value for error message padding (e.g., "12px 16px")'
+},
+propertyHelp: {
+tooltip: 'Padding inside error messages'
+}
+/* wwEditor:end */
+},
+errorMessageBorderRadius: {
+label: { en: 'Error Message Border Radius' },
+type: 'Length',
+section: 'style',
+bindable: true,
+defaultValue: '4px',
+options: {
+unitChoices: [
+{ value: 'px', label: 'px', min: 0, max: 50 }
+]
+},
+/* wwEditor:start */
+bindingValidation: {
+type: 'string',
+tooltip: 'A length value for error message border radius (e.g., "4px")'
+},
+propertyHelp: {
+tooltip: 'Border radius of error messages'
 }
 /* wwEditor:end */
 }

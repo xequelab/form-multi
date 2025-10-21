@@ -49,6 +49,14 @@
         <transition :name="transitionName" :mode="transitionMode">
           <div :key="currentStepIndex" class="step-wrapper">
             <wwElement v-bind="currentStep?.content" />
+
+            <!-- Validation Error Message -->
+            <transition name="error-fade">
+              <div v-if="showValidationError" class="validation-error" :style="errorMessageStyle">
+                <span class="error-icon">⚠</span>
+                <span class="error-text">{{ currentStep?.errorMessage }}</span>
+              </div>
+            </transition>
           </div>
         </transition>
       </template>
@@ -132,9 +140,14 @@ export default {
       for (let i = 1; i <= numberOfSteps && i <= 10; i++) {
         const labelKey = `step${i}Label`;
         const contentKey = `step${i}Content`;
+        const conditionKey = `step${i}Condition`;
+        const errorMessageKey = `step${i}ErrorMessage`;
+
         stepsArray.push({
           label: props.content?.[labelKey] || `Step ${i}`,
-          content: props.content?.[contentKey]
+          content: props.content?.[contentKey],
+          condition: props.content?.[conditionKey],
+          errorMessage: props.content?.[errorMessageKey] || 'Please complete all required fields'
         });
       }
 
@@ -162,7 +175,16 @@ export default {
       defaultValue: computed(() => (steps.value || []).map(() => true))
     });
 
+    const showValidationError = ref(false);
+
     const currentStep = computed(() => steps.value?.[currentStepIndex.value] || null);
+
+    const currentStepIsValid = computed(() => {
+      const step = currentStep.value;
+      if (!step) return true;
+      // If condition is undefined or true (default), step is valid
+      return step.condition === undefined || step.condition === true || step.condition === 'true';
+    });
 
     const progressPercentage = computed(() => {
       const total = steps.value?.length || 1;
@@ -229,13 +251,27 @@ export default {
       fontSize: props.content?.buttonFontSize || '16px'
     }));
 
+    const errorMessageStyle = computed(() => ({
+      backgroundColor: props.content?.errorMessageBackgroundColor || '#fee',
+      color: props.content?.errorMessageTextColor || '#c33',
+      padding: props.content?.errorMessagePadding || '12px 16px',
+      borderRadius: props.content?.errorMessageBorderRadius || '4px'
+    }));
+
     const nextStep = () => {
       if (isEditing.value) return;
-      
+
+      // Check current step validation condition
+      if (!currentStepIsValid.value) {
+        showValidationError.value = true;
+        return;
+      }
+
       if (currentStepIndex.value < steps.value.length - 1 && canProceedToNext.value) {
         const oldIndex = currentStepIndex.value;
+        showValidationError.value = false; // Reset error when moving to next step
         setCurrentStepIndex(currentStepIndex.value + 1);
-        
+
         emit('trigger-event', {
           name: 'stepChange',
           event: {
@@ -249,11 +285,12 @@ export default {
 
     const previousStep = () => {
       if (isEditing.value) return;
-      
+
       if (currentStepIndex.value > 0) {
         const oldIndex = currentStepIndex.value;
+        showValidationError.value = false; // Reset error when going back
         setCurrentStepIndex(currentStepIndex.value - 1);
-        
+
         emit('trigger-event', {
           name: 'stepChange',
           event: {
@@ -267,11 +304,12 @@ export default {
 
     const goToStep = (stepIndex) => {
       if (isEditing.value) return false;
-      
+
       if (stepIndex >= 0 && stepIndex < steps.value.length) {
         const oldIndex = currentStepIndex.value;
+        showValidationError.value = false; // Reset error when jumping to step
         setCurrentStepIndex(stepIndex);
-        
+
         emit('trigger-event', {
           name: 'stepChange',
           event: {
@@ -280,7 +318,7 @@ export default {
             direction: stepIndex > oldIndex ? 'next' : 'previous'
           }
         });
-        
+
         return true;
       }
       return false;
@@ -351,6 +389,9 @@ export default {
       previousButtonStyle,
       nextButtonStyle,
       submitButtonStyle,
+      errorMessageStyle,
+      showValidationError,
+      currentStepIsValid,
       showProgressBar: computed(() => props.content?.showProgressBar !== false),
       showStepIndicators: computed(() => props.content?.showStepIndicators !== false),
       showNavigationButtons: computed(() => props.content?.showNavigationButtons !== false),
@@ -415,6 +456,25 @@ export default {
     .step-wrapper {
       width: 100%;
     }
+
+    .validation-error {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid currentColor;
+      font-size: 14px;
+      font-weight: 500;
+
+      .error-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      .error-text {
+        flex: 1;
+      }
+    }
   }
 
   .navigation-section {
@@ -468,5 +528,20 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.error-fade-enter-active,
+.error-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.error-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.error-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
 }
 </style>
