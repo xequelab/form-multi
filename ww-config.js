@@ -645,6 +645,27 @@ export default {
       }
       /* wwEditor:end */
     },
+    stepIndicatorsGap: {
+      label: { en: 'Step Indicators Gap' },
+      type: 'Length',
+      section: 'style',
+      bindable: true,
+      defaultValue: '24px',
+      options: {
+        unitChoices: [
+          { value: 'px', label: 'px', min: 0, max: 100 }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'A length value for gap between step indicators (e.g., "24px")'
+      },
+      propertyHelp: {
+        tooltip: 'Spacing between step indicators (applies to vertical orientation)'
+      }
+      /* wwEditor:end */
+    },
     enableFreeNavigation: {
       label: { en: 'Enable Free Navigation' },
       type: 'OnOff',

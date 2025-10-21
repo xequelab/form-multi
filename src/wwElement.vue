@@ -205,7 +205,8 @@ export default {
     const transitionMode = computed(() => props.content?.transitionMode || 'out-in');
 
     const containerStyle = computed(() => ({
-      gap: props.content?.containerGap || '24px'
+      gap: props.content?.containerGap || '24px',
+      '--step-indicators-gap': props.content?.stepIndicatorsGap || '24px'
     }));
 
     const stepsContentStyle = computed(() => ({
@@ -553,7 +554,7 @@ export default {
       &.orientation-vertical {
         flex-direction: column;
         align-items: flex-start;
-        gap: 24px;
+        gap: var(--step-indicators-gap, 24px);
       }
 
       .connector-line {

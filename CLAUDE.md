@@ -29,6 +29,7 @@ A comprehensive multi-step form component that guides users through a sequential
 - showProgressBar: boolean - Display progress bar (default: true)
 - showStepIndicators: boolean - Display step indicators (default: true)
 - stepIndicatorsOrientation: 'horizontal'|'vertical' - Layout direction of step indicators (default: 'horizontal')
+- stepIndicatorsGap: string - Spacing between step indicators in vertical mode (default: '24px')
 - enableFreeNavigation: boolean - Allow clicking step indicators to navigate (default: false)
 - showNavigationButtons: boolean - Display navigation buttons (default: true)
 - enableStepValidation: boolean - Enable step validation (default: false)
