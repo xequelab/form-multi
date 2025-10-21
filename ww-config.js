@@ -160,6 +160,25 @@ export default {
       }
       /* wwEditor:end */
     },
+    step1DataSchema: {
+      label: { en: 'Step 1 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step (e.g., {"name": "", "email": ""}). These fields will be available in workflows as stepData.step1.name'
+      }
+      /* wwEditor:end */
+    },
     step2Label: {
       label: { en: 'Step 2 - Label' },
       type: 'Text',
@@ -207,6 +226,26 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 2
     },
+    step2DataSchema: {
+      label: { en: 'Step 2 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step (e.g., {"address": "", "city": ""}). These fields will be available in workflows as stepData.step2.address'
+      },
+      /* wwEditor:end */
+      hidden: content => (content.numberOfSteps || 3) < 2
+    },
     step3Label: {
       label: { en: 'Step 3 - Label' },
       type: 'Text',
@@ -230,6 +269,48 @@ export default {
         type: 'ww-flexbox',
         name: 'Step 3'
       },
+      hidden: content => (content.numberOfSteps || 3) < 3
+    },
+    step3Condition: {
+      label: { en: 'Step 3 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 3
+    },
+    step3ErrorMessage: {
+      label: { en: 'Step 3 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 3
+    },
+    step3DataSchema: {
+      label: { en: 'Step 3 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step3.fieldName'
+      },
+      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 3
     },
     step4Label: {
@@ -257,6 +338,48 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 4
     },
+    step4Condition: {
+      label: { en: 'Step 4 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 4
+    },
+    step4ErrorMessage: {
+      label: { en: 'Step 4 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 4
+    },
+    step4DataSchema: {
+      label: { en: 'Step 4 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step4.fieldName'
+      },
+      /* wwEditor:end */
+      hidden: content => (content.numberOfSteps || 3) < 4
+    },
     step5Label: {
       label: { en: 'Step 5 - Label' },
       type: 'Text',
@@ -280,6 +403,48 @@ export default {
         type: 'ww-flexbox',
         name: 'Step 5'
       },
+      hidden: content => (content.numberOfSteps || 3) < 5
+    },
+    step5Condition: {
+      label: { en: 'Step 5 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 5
+    },
+    step5ErrorMessage: {
+      label: { en: 'Step 5 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 5
+    },
+    step5DataSchema: {
+      label: { en: 'Step 5 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step5.fieldName'
+      },
+      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 5
     },
     step6Label: {
@@ -307,6 +472,48 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 6
     },
+    step6Condition: {
+      label: { en: 'Step 6 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 6
+    },
+    step6ErrorMessage: {
+      label: { en: 'Step 6 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 6
+    },
+    step6DataSchema: {
+      label: { en: 'Step 6 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step6.fieldName'
+      },
+      /* wwEditor:end */
+      hidden: content => (content.numberOfSteps || 3) < 6
+    },
     step7Label: {
       label: { en: 'Step 7 - Label' },
       type: 'Text',
@@ -330,6 +537,48 @@ export default {
         type: 'ww-flexbox',
         name: 'Step 7'
       },
+      hidden: content => (content.numberOfSteps || 3) < 7
+    },
+    step7Condition: {
+      label: { en: 'Step 7 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 7
+    },
+    step7ErrorMessage: {
+      label: { en: 'Step 7 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 7
+    },
+    step7DataSchema: {
+      label: { en: 'Step 7 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step7.fieldName'
+      },
+      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 7
     },
     step8Label: {
@@ -357,6 +606,48 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 8
     },
+    step8Condition: {
+      label: { en: 'Step 8 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 8
+    },
+    step8ErrorMessage: {
+      label: { en: 'Step 8 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 8
+    },
+    step8DataSchema: {
+      label: { en: 'Step 8 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step8.fieldName'
+      },
+      /* wwEditor:end */
+      hidden: content => (content.numberOfSteps || 3) < 8
+    },
     step9Label: {
       label: { en: 'Step 9 - Label' },
       type: 'Text',
@@ -382,6 +673,48 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 9
     },
+    step9Condition: {
+      label: { en: 'Step 9 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 9
+    },
+    step9ErrorMessage: {
+      label: { en: 'Step 9 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 9
+    },
+    step9DataSchema: {
+      label: { en: 'Step 9 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step9.fieldName'
+      },
+      /* wwEditor:end */
+      hidden: content => (content.numberOfSteps || 3) < 9
+    },
     step10Label: {
       label: { en: 'Step 10 - Label' },
       type: 'Text',
@@ -405,6 +738,48 @@ export default {
         type: 'ww-flexbox',
         name: 'Step 10'
       },
+      hidden: content => (content.numberOfSteps || 3) < 10
+    },
+    step10Condition: {
+      label: { en: 'Step 10 - Validation Condition' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: true,
+      options: {
+        placeholder: 'Binding that returns true/false'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 10
+    },
+    step10ErrorMessage: {
+      label: { en: 'Step 10 - Error Message' },
+      type: 'Text',
+      section: 'settings',
+      bindable: true,
+      defaultValue: 'Please complete all required fields',
+      options: {
+        placeholder: 'Error message to display'
+      },
+      hidden: content => (content.numberOfSteps || 3) < 10
+    },
+    step10DataSchema: {
+      label: { en: 'Step 10 - Data Schema' },
+      type: 'Object',
+      section: 'settings',
+      bindable: true,
+      defaultValue: {},
+      options: {
+        placeholder: 'Define the data structure for this step'
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'object',
+        tooltip: 'A JSON object defining the data fields for this step'
+      },
+      propertyHelp: {
+        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step10.fieldName'
+      },
+      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 10
     },
     showProgressBar: {

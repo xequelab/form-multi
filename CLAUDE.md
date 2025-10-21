@@ -16,6 +16,7 @@ A comprehensive multi-step form component that guides users through a sequential
 - Step indicators with active, completed, and inactive states
 - Customizable navigation buttons (Previous, Next, Submit)
 - Optional step validation to prevent progression
+- Per-step data schemas for organized form data management
 - Flexible styling options for all visual elements
 - Exposed internal state for current step and completion status
 
@@ -25,6 +26,7 @@ A comprehensive multi-step form component that guides users through a sequential
 - step1Content through step10Content: Element - Content dropzones for each step (visibility controlled by numberOfSteps)
 - step1Condition through step10Condition: boolean - Validation conditions for each step (default: true)
 - step1ErrorMessage through step10ErrorMessage: string - Error messages shown when validation fails (default: 'Please complete all required fields')
+- step1DataSchema through step10DataSchema: object - JSON object defining the data structure for each step (default: {})
 - showProgressBar: boolean - Display progress bar (default: true)
 - showStepIndicators: boolean - Display step indicators (default: true)
 - showNavigationButtons: boolean - Display navigation buttons (default: true)
@@ -71,6 +73,7 @@ A comprehensive multi-step form component that guides users through a sequential
 - currentStepIndex: Current step index (0-based). (path: variables['uid-currentStepIndex'])
 - isCompleted: Whether form has been submitted. (path: variables['uid-isCompleted'])
 - validationStates: Array of validation states for each step. (path: variables['uid-validationStates'])
+- stepData: Object containing organized data schemas for each step. Access fields via stepData.step1.fieldName, stepData.step2.fieldName, etc. (path: variables['uid-stepData'])
 
 ***Step Validation Example:***
 
@@ -89,6 +92,31 @@ Each step can have its own validation condition and error message:
 **Result:**
 When the user tries to click "Next" without meeting the condition, an elegant error message appears within the step content area (not a popup), and navigation is blocked until the condition becomes true.
 
+***Data Schema Example:***
+
+Define the data structure for each step to organize and access form data in workflows:
+
+**Step 1 - User Info:**
+- **Step 1 - Data Schema:** Bind to or enter: `{"name": "", "email": "", "phone": ""}`
+- Add inputs and bind them to the schema fields:
+  - Name input → Bind value to: `stepData.step1.name`
+  - Email input → Bind value to: `stepData.step1.email`
+  - Phone input → Bind value to: `stepData.step1.phone`
+
+**Step 2 - Address:**
+- **Step 2 - Data Schema:** Bind to or enter: `{"street": "", "city": "", "zipCode": ""}`
+- Add inputs and bind them to the schema fields:
+  - Street input → Bind value to: `stepData.step2.street`
+  - City input → Bind value to: `stepData.step2.city`
+  - Zip input → Bind value to: `stepData.step2.zipCode`
+
+**Benefits:**
+- All form data is organized by step in the `stepData` variable
+- Easy access in workflows: `stepData.step1.name`, `stepData.step2.city`, etc.
+- Clean structure for API calls or database operations
+- Autocomplete/suggestions available in the workflow editor
+- No need to manually track individual input variables
+
 ***Notes:***
 - Flexbox containers are named "Step 1", "Step 2", etc. for easy identification in the tree
 - The component creates 10 flexbox containers in the editor tree (one for each possible step)
@@ -100,6 +128,7 @@ When the user tries to click "Next" without meeting the condition, an elegant er
 - Each step dropzone can contain any WeWeb elements (inputs, text, images, etc.)
 - **New:** Per-step validation conditions allow you to control when users can proceed to the next step
 - **New:** Error messages are displayed elegantly within the step content with smooth animations
+- **New:** Data schemas allow you to define the data structure for each step, making form data organized and accessible via `stepData.step1.fieldName`, `stepData.step2.fieldName`, etc.
 - When step validation is enabled, use the `setStepValidation` action in workflows to control step progression
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled
