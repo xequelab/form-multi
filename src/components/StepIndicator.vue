@@ -116,6 +116,7 @@ export default {
   .indicators-container.orientation-vertical & {
     flex-direction: row;
     width: 100%;
+    padding: 4px 0; // Add vertical spacing
   }
 
   // In horizontal mode, label appears below

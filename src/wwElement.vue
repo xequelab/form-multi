@@ -320,25 +320,24 @@ export default {
         return;
       }
 
-      // Going forward - validate all steps between current and target
-      // Check current step first
-      if (!currentStepIsValid.value) {
-        showValidationError.value = true;
-        return;
-      }
+      // Going forward - validate ALL steps from current to target (inclusive)
+      // We need to check current step AND all intermediate steps
+      for (let i = currentStepIndex.value; i < targetStepIndex; i++) {
+        const step = steps.value[i];
 
-      // Check all intermediate steps if enableStepValidation is on
-      if (props.content?.enableStepValidation) {
-        for (let i = currentStepIndex.value; i < targetStepIndex; i++) {
-          if (validationStates.value?.[i] === false) {
-            // Cannot proceed - a step in between is not valid
-            return;
+        // Check step condition
+        const conditionValid = step.condition === undefined || step.condition === true || step.condition === 'true';
+        if (!conditionValid) {
+          // Show error only if it's the current step
+          if (i === currentStepIndex.value) {
+            showValidationError.value = true;
           }
+          return;
+        }
 
-          // Check step condition
-          const step = steps.value[i];
-          const isValid = step.condition === undefined || step.condition === true || step.condition === 'true';
-          if (!isValid) {
+        // Check validation state if enableStepValidation is on
+        if (props.content?.enableStepValidation) {
+          if (validationStates.value?.[i] === false) {
             return;
           }
         }
@@ -552,18 +551,18 @@ export default {
       &.orientation-vertical {
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 24px;
 
         .connector-line {
           position: absolute;
           left: 20px;
-          top: 0;
+          top: 40px; // Start after first indicator
           bottom: 0;
           z-index: 0;
 
           &.orientation-vertical {
             width: var(--connector-height, 2px);
-            height: 100%;
+            height: calc(100% - 80px); // Adjust to not cover first and last indicator
           }
         }
       }
