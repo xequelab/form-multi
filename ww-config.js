@@ -160,25 +160,6 @@ export default {
       }
       /* wwEditor:end */
     },
-    step1DataSchema: {
-      label: { en: 'Step 1 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step (e.g., {"name": "", "email": ""}). These fields will be available in workflows as stepData.step1.name'
-      }
-      /* wwEditor:end */
-    },
     step2Label: {
       label: { en: 'Step 2 - Label' },
       type: 'Text',
@@ -224,26 +205,6 @@ export default {
       options: {
         placeholder: 'Error message to display'
       },
-      hidden: content => (content.numberOfSteps || 3) < 2
-    },
-    step2DataSchema: {
-      label: { en: 'Step 2 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step (e.g., {"address": "", "city": ""}). These fields will be available in workflows as stepData.step2.address'
-      },
-      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 2
     },
     step3Label: {
@@ -293,26 +254,6 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 3
     },
-    step3DataSchema: {
-      label: { en: 'Step 3 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step3.fieldName'
-      },
-      /* wwEditor:end */
-      hidden: content => (content.numberOfSteps || 3) < 3
-    },
     step4Label: {
       label: { en: 'Step 4 - Label' },
       type: 'Text',
@@ -358,26 +299,6 @@ export default {
       options: {
         placeholder: 'Error message to display'
       },
-      hidden: content => (content.numberOfSteps || 3) < 4
-    },
-    step4DataSchema: {
-      label: { en: 'Step 4 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step4.fieldName'
-      },
-      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 4
     },
     step5Label: {
@@ -427,26 +348,6 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 5
     },
-    step5DataSchema: {
-      label: { en: 'Step 5 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step5.fieldName'
-      },
-      /* wwEditor:end */
-      hidden: content => (content.numberOfSteps || 3) < 5
-    },
     step6Label: {
       label: { en: 'Step 6 - Label' },
       type: 'Text',
@@ -492,26 +393,6 @@ export default {
       options: {
         placeholder: 'Error message to display'
       },
-      hidden: content => (content.numberOfSteps || 3) < 6
-    },
-    step6DataSchema: {
-      label: { en: 'Step 6 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step6.fieldName'
-      },
-      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 6
     },
     step7Label: {
@@ -561,26 +442,6 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 7
     },
-    step7DataSchema: {
-      label: { en: 'Step 7 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step7.fieldName'
-      },
-      /* wwEditor:end */
-      hidden: content => (content.numberOfSteps || 3) < 7
-    },
     step8Label: {
       label: { en: 'Step 8 - Label' },
       type: 'Text',
@@ -626,26 +487,6 @@ export default {
       options: {
         placeholder: 'Error message to display'
       },
-      hidden: content => (content.numberOfSteps || 3) < 8
-    },
-    step8DataSchema: {
-      label: { en: 'Step 8 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step8.fieldName'
-      },
-      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 8
     },
     step9Label: {
@@ -695,26 +536,6 @@ export default {
       },
       hidden: content => (content.numberOfSteps || 3) < 9
     },
-    step9DataSchema: {
-      label: { en: 'Step 9 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step9.fieldName'
-      },
-      /* wwEditor:end */
-      hidden: content => (content.numberOfSteps || 3) < 9
-    },
     step10Label: {
       label: { en: 'Step 10 - Label' },
       type: 'Text',
@@ -760,26 +581,6 @@ export default {
       options: {
         placeholder: 'Error message to display'
       },
-      hidden: content => (content.numberOfSteps || 3) < 10
-    },
-    step10DataSchema: {
-      label: { en: 'Step 10 - Data Schema' },
-      type: 'Object',
-      section: 'settings',
-      bindable: true,
-      defaultValue: {},
-      options: {
-        placeholder: 'Define the data structure for this step'
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: 'object',
-        tooltip: 'A JSON object defining the data fields for this step'
-      },
-      propertyHelp: {
-        tooltip: 'Define the data structure for this step. These fields will be available in workflows as stepData.step10.fieldName'
-      },
-      /* wwEditor:end */
       hidden: content => (content.numberOfSteps || 3) < 10
     },
     showProgressBar: {

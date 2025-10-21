@@ -142,14 +142,12 @@ export default {
         const contentKey = `step${i}Content`;
         const conditionKey = `step${i}Condition`;
         const errorMessageKey = `step${i}ErrorMessage`;
-        const dataSchemaKey = `step${i}DataSchema`;
 
         stepsArray.push({
           label: props.content?.[labelKey] || `Step ${i}`,
           content: props.content?.[contentKey],
           condition: props.content?.[conditionKey],
-          errorMessage: props.content?.[errorMessageKey] || 'Please complete all required fields',
-          dataSchema: props.content?.[dataSchemaKey] || {}
+          errorMessage: props.content?.[errorMessageKey] || 'Please complete all required fields'
         });
       }
 
@@ -175,32 +173,6 @@ export default {
       name: 'validationStates',
       type: 'array',
       defaultValue: computed(() => (steps.value || []).map(() => true))
-    });
-
-    // Exposed stepData variable - organizes data schemas by step
-    const stepData = computed(() => {
-      const data = {};
-      const numberOfSteps = props.content?.numberOfSteps || 3;
-
-      for (let i = 1; i <= numberOfSteps && i <= 10; i++) {
-        const dataSchemaKey = `step${i}DataSchema`;
-        const schema = props.content?.[dataSchemaKey];
-
-        if (schema && typeof schema === 'object') {
-          data[`step${i}`] = { ...schema };
-        } else {
-          data[`step${i}`] = {};
-        }
-      }
-
-      return data;
-    });
-
-    const { value: stepDataValue } = wwLib.wwVariable.useComponentVariable({
-      uid: props.uid,
-      name: 'stepData',
-      type: 'object',
-      defaultValue: stepData
     });
 
     const showValidationError = ref(false);
