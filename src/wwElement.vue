@@ -218,10 +218,25 @@ export default {
       gap: props.content?.navigationGap || '12px'
     }));
 
-    const connectorStyle = computed(() => ({
-      backgroundColor: props.content?.connectorColor || '#e0e0e0',
-      height: props.content?.connectorHeight || '2px'
-    }));
+    const connectorStyle = computed(() => {
+      const orientation = props.content?.stepIndicatorsOrientation || 'horizontal';
+      const thickness = props.content?.connectorHeight || '2px';
+
+      if (orientation === 'vertical') {
+        return {
+          backgroundColor: props.content?.connectorColor || '#e0e0e0',
+          width: thickness,
+          height: 'calc(100% - 80px)',
+          top: '40px',
+          left: '20px'
+        };
+      } else {
+        return {
+          backgroundColor: props.content?.connectorColor || '#e0e0e0',
+          height: thickness
+        };
+      }
+    });
 
     const previousButtonStyle = computed(() => ({
       backgroundColor: props.content?.previousButtonBackgroundColor || '#6c757d',
@@ -533,37 +548,27 @@ export default {
       &.orientation-horizontal {
         flex-direction: row;
         align-items: flex-start;
-
-        .connector-line {
-          position: absolute;
-          top: 20px;
-          left: 0;
-          right: 0;
-          z-index: 0;
-
-          &.orientation-horizontal {
-            height: var(--connector-height, 2px);
-            width: 100%;
-          }
-        }
       }
 
       &.orientation-vertical {
         flex-direction: column;
         align-items: flex-start;
         gap: 24px;
+      }
 
-        .connector-line {
-          position: absolute;
-          left: 20px;
-          top: 40px; // Start after first indicator
-          bottom: 0;
-          z-index: 0;
+      .connector-line {
+        position: absolute;
+        z-index: 0;
 
-          &.orientation-vertical {
-            width: var(--connector-height, 2px);
-            height: calc(100% - 80px); // Adjust to not cover first and last indicator
-          }
+        &.orientation-horizontal {
+          top: 20px;
+          left: 0;
+          right: 0;
+          width: 100%;
+        }
+
+        &.orientation-vertical {
+          // Position and dimensions set via inline style
         }
       }
     }
