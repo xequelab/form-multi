@@ -134,9 +134,10 @@ If any intermediate step fails validation, the navigation is blocked and no erro
   - **Horizontal:** Indicators displayed at the top, content below (full width)
   - **Vertical:** Indicators on the left sidebar (250px), content takes remaining space on the right
 - Free navigation allows users to click step indicators to jump between steps (with automatic validation)
-- **Editor Fix:** Component state is fully preserved across edit/preview mode transitions (values never reset)
-  - Uses v-show instead of v-if to keep all steps rendered
-  - Maintains component state when switching between edit and preview modes
+- **Editor Fix:** Component state is fully preserved in edit mode (values never reset)
+  - Edit mode: Uses v-show to keep all steps rendered and preserve state
+  - Preview/Published mode: Uses transitions for smooth animations between steps
+  - Submit button blocks when last step validation fails with tooltip showing error message
 - The component automatically prevents navigation in edit mode to allow proper editing
 - Step indicators show checkmarks on completed steps when enabled
 - The submit button only appears on the final step

@@ -36,25 +36,35 @@
 
       <!-- Steps Content -->
       <div class="steps-content" :style="stepsContentStyle">
-      <!-- Always render all steps with v-show to preserve state across edit/preview modes -->
-      <template v-for="index in 10" :key="`step-${index}`">
-        <div
-          v-if="content?.[`step${index}Content`]"
-          v-show="(index - 1) === currentStepIndex"
-          class="step-wrapper"
-          :class="{ 'with-transition': !isEditing }"
-        >
-          <wwElement v-bind="content[`step${index}Content`]" />
+        <template v-if="isEditing">
+          <!-- Edit mode: simple v-show without transitions -->
+          <template v-for="index in 10" :key="`edit-step-${index}`">
+            <div
+              v-if="content?.[`step${index}Content`]"
+              v-show="(index - 1) === currentStepIndex"
+              class="step-wrapper"
+            >
+              <wwElement v-bind="content[`step${index}Content`]" />
+            </div>
+          </template>
+        </template>
 
-          <!-- Validation Error Message (only in preview/published mode) -->
-          <transition name="error-fade">
-            <div v-if="!isEditing && showValidationError && (index - 1) === currentStepIndex" class="validation-error" :style="errorMessageStyle">
-              <span class="error-icon">⚠</span>
-              <span class="error-text">{{ steps[index - 1]?.errorMessage }}</span>
+        <template v-else>
+          <!-- Preview/Published mode: use transition -->
+          <transition :name="transitionName" :mode="transitionMode">
+            <div :key="currentStepIndex" class="step-wrapper">
+              <wwElement v-bind="currentStep?.content" />
+
+              <!-- Validation Error Message -->
+              <transition name="error-fade">
+                <div v-if="showValidationError" class="validation-error" :style="errorMessageStyle">
+                  <span class="error-icon">⚠</span>
+                  <span class="error-text">{{ currentStep?.errorMessage }}</span>
+                </div>
+              </transition>
             </div>
           </transition>
-        </div>
-      </template>
+        </template>
       </div>
     </div>
 
@@ -84,6 +94,7 @@
         class="nav-button submit-button"
         :style="submitButtonStyle"
         :disabled="!canSubmit"
+        :title="!canSubmit && currentStep ? currentStep.errorMessage : ''"
         @click="submitForm"
       >
         {{ submitButtonLabel }}
@@ -193,6 +204,15 @@ export default {
     });
 
     const canSubmit = computed(() => {
+      // Check if we're on the last step and if its condition is valid
+      const lastStep = steps.value[steps.value.length - 1];
+      const lastStepConditionValid = lastStep?.condition === undefined ||
+                                     lastStep?.condition === true ||
+                                     lastStep?.condition === 'true';
+
+      if (!lastStepConditionValid) return false;
+
+      // If enableStepValidation is on, check all validation states
       if (!props.content?.enableStepValidation) return true;
       return validationStates.value?.every(state => state !== false);
     });
