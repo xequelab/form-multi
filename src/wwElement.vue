@@ -226,7 +226,8 @@ export default {
 
     const containerStyle = computed(() => ({
       gap: props.content?.containerGap || '24px',
-      '--step-indicators-gap': props.content?.stepIndicatorsGap || '24px'
+      '--step-indicators-gap': props.content?.stepIndicatorsGap || '24px',
+      '--content-gap': props.content?.contentGap || '24px'
     }));
 
     const stepsContentStyle = computed(() => ({
@@ -536,7 +537,7 @@ export default {
   .main-content-area {
     display: flex;
     width: 100%;
-    gap: 24px;
+    gap: var(--content-gap, 24px);
 
     // Horizontal orientation: indicators on top, content below (stacked)
     &.orientation-horizontal {

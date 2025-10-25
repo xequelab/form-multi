@@ -666,6 +666,27 @@ export default {
       }
       /* wwEditor:end */
     },
+    contentGap: {
+      label: { en: 'Content Gap' },
+      type: 'Length',
+      section: 'style',
+      bindable: true,
+      defaultValue: '24px',
+      options: {
+        unitChoices: [
+          { value: 'px', label: 'px', min: 0, max: 100 }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'A length value for gap between step indicators and content (e.g., "24px")'
+      },
+      propertyHelp: {
+        tooltip: 'Spacing between step indicators and content area'
+      }
+      /* wwEditor:end */
+    },
     enableFreeNavigation: {
       label: { en: 'Enable Free Navigation' },
       type: 'OnOff',
