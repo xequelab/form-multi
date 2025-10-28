@@ -36,34 +36,27 @@
 
       <!-- Steps Content -->
       <div class="steps-content" :style="stepsContentStyle">
-        <template v-if="isEditing">
-          <!-- Edit mode: simple v-show without transitions -->
-          <template v-for="index in 10" :key="`edit-step-${index}`">
-            <div
-              v-if="content?.[`step${index}Content`]"
-              v-show="(index - 1) === currentStepIndex"
-              class="step-wrapper"
-            >
-              <wwElement v-bind="content[`step${index}Content`]" />
-            </div>
-          </template>
-        </template>
+        <!-- All steps rendered with v-show to preserve state -->
+        <template v-for="(step, index) in steps" :key="`step-${index}`">
+          <div
+            v-show="index === currentStepIndex"
+            class="step-wrapper"
+            :class="{
+              'step-active': index === currentStepIndex,
+              'step-transition': !isEditing,
+              [`transition-${transitionName}`]: !isEditing
+            }"
+          >
+            <wwElement v-bind="step.content" />
 
-        <template v-else>
-          <!-- Preview/Published mode: use transition -->
-          <transition :name="transitionName" :mode="transitionMode">
-            <div :key="currentStepIndex" class="step-wrapper">
-              <wwElement v-bind="currentStep?.content" />
-
-              <!-- Validation Error Message -->
-              <transition name="error-fade">
-                <div v-if="showValidationError" class="validation-error" :style="errorMessageStyle">
-                  <span class="error-icon">⚠</span>
-                  <span class="error-text">{{ currentStep?.errorMessage }}</span>
-                </div>
-              </transition>
-            </div>
-          </transition>
+            <!-- Validation Error Message -->
+            <transition name="error-fade">
+              <div v-if="showValidationError && index === currentStepIndex" class="validation-error" :style="errorMessageStyle">
+                <span class="error-icon">⚠</span>
+                <span class="error-text">{{ step.errorMessage }}</span>
+              </div>
+            </transition>
+          </div>
         </template>
       </div>
     </div>
@@ -612,6 +605,39 @@ export default {
 
     .step-wrapper {
       width: 100%;
+
+      // Add smooth transitions when using v-show
+      &.step-transition {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+
+        &:not(.step-active) {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        &.step-active {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        // Slide transition
+        &.transition-slide:not(.step-active) {
+          transform: translateX(30px);
+        }
+
+        &.transition-slide.step-active {
+          transform: translateX(0);
+        }
+
+        // Fade transition (no transform needed, just opacity)
+        &.transition-fade:not(.step-active) {
+          transform: none;
+        }
+
+        &.transition-fade.step-active {
+          transform: none;
+        }
+      }
     }
 
     .validation-error {
